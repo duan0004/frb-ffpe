@@ -1,0 +1,123 @@
+% ============================================================
+% METHODS
+% ============================================================
+% To be included via \input{methods} or appended to main.tex
+
+\section*{Methods}
+
+\subsection*{M1. Data sources and processing}
+
+\textbf{FRB~121102.} We use the catalogue of 1{,}652 bursts detected by FAST at 1.05--1.45\,GHz during 59.5 hours of observation between 2019 August 29 and October 29\cite{li2021}. Burst energies are taken directly from the published isotropic-equivalent energy column ($E_{\mathrm{iso}}$ in erg), computed assuming a luminosity distance $d_L = 972$\,Mpc ($z = 0.193$; ref.~\citenum{tendulkar2017}).
+
+\textbf{FRB~20201124A (Xu sample).} We use the 1{,}863-burst catalogue from~54 hours of FAST observation between 2021 September~25 and October~28\cite{xu2022}. Burst fluences $\mathcal{F}$ (in Jy\,ms) are converted to isotropic energies via
+\begin{equation}
+E = 4\pi d_L^2 \,\mathcal{F}\,\Delta\nu\,/(1+z)\,,
+\tag{M1}
+\label{eq:M1}
+\end{equation}
+with $d_L = 443$\,Mpc ($z = 0.098$) and $\Delta\nu = 500$\,MHz. Waiting times ($N = 1{,}745$) are provided separately.
+
+\textbf{FRB~20201124A (Zhang sample).} We incorporate 881~bursts from a second active episode reported in ref.~\citenum{zhang2022}, covering 2021~September. Energies are extracted directly from the published table.
+
+\subsection*{M2. Langevin simulation}
+
+The stochastic differential equation (equation~\ref{eq:langevin}) is integrated using the Euler--Maruyama scheme with step size $\Delta t = 0.005$ (dimensionless units) and $N_{\mathrm{traj}} = 300$ independent trajectories per parameter set. At each step:
+\begin{align}
+x_{n+1} &= x_n + \kappa\,x_n(1 - x_n)\,\Delta t + \sigma\sqrt{\Delta t}\,\xi_n\,,
+\tag{M2}
+\label{eq:M2}
+\end{align}
+where $\xi_n \sim \mathcal{N}(0,1)$. Trajectories are reflected at $x = 0.01$ to prevent sign changes.
+
+\subsection*{M3. Energy-integral burst detection}
+
+A burst is initiated when $x(t)$ crosses the dynamic threshold
+\begin{equation}
+x_{\mathrm{thresh}} = 0.8 + \frac{0.3}{\max(\sigma, 0.1)}\,,
+\tag{M3}
+\label{eq:M3}
+\end{equation}
+chosen to adapt to the noise-dependent excursion level. The burst energy accumulates (equation~\ref{eq:energy}) until $x(t)$ drops below $x_{\mathrm{reset}} = 0.3$, at which point the burst terminates and the integrated energy is recorded.
+
+\subsection*{M4. CTRW waiting-time generation}
+
+For each burst event, an inter-burst waiting time is drawn from a stable distribution with index $\gamma$ using the Chambers--Mallows--Stuck algorithm\cite{chambers1976}:
+\begin{align}
+\tau &= \tau_{\min}\left[\frac{(-\ln u)^\gamma \sin(\gamma\pi v)}{\sin(\pi v)}\right]^{1/\gamma}\,,
+\tag{M4}
+\label{eq:M4}
+\end{align}
+where $u, v \sim \mathrm{Uniform}(0,1)$ and $\tau_{\min} = 0.01$. To suppress pathological realisations, each $\tau$ is further smoothed via $n_{\mathrm{sub}} = \min(\lfloor\tau/\Delta t\rfloor + 1,\, 30)$ substeps with additive Gaussian noise:
+\begin{equation}
+\tau_{\mathrm{eff}} = \sum_{i=1}^{n_{\mathrm{sub}}} \left(\frac{\tau}{n_{\mathrm{sub}}} + 0.1\sqrt{\frac{\tau}{n_{\mathrm{sub}}}}\,\eta_i\right),
+\tag{M5}
+\label{eq:M5}
+\end{equation}
+where $\eta_i \sim \mathcal{N}(0,1)$. The CTRW sampling procedure implements the theoretical power-law trapping times prescribed by the fractional dynamics (equation~\ref{eq:FFPE}); the smoothing substeps suppress numerical pathologies without altering the emergent distribution statistics. Varying the truncation threshold $\tau_{\min}$ and the number of smoothing substeps $n_{\mathrm{sub}}$ changes the recovered $k$ and $\gamma_{\mathrm{ML}}$ by less than 3.8\% (Extended Data Fig.~2b), confirming that the observed $k < \gamma$ offset is a physical effect rather than a numerical artifact.
+
+\subsection*{M5. Hierarchical CTRW for bimodal waiting times}
+
+To reproduce the observed bimodal waiting-time distribution ($\sim$50\,ms and $\sim$10\,s peaks), we introduce a two-component CTRW with:
+\begin{itemize}
+\item Shallow traps ($\gamma_1 = 0.95$, $\tau_{\min,1} = 0.01$\,s) entered with probability $w = 0.8$, producing the short-timescale peak;
+\item Deep traps ($\gamma_2 = 0.30$, $\tau_{\min,2} = 0.10$\,s) entered with probability $1-w$, producing the long-timescale peak.
+\end{itemize}
+This hierarchical model achieves a peak ratio of $\sim$443$\times$ in GMM decomposition, substantially closer to the observed $\sim$200--1{,}800$\times$ ratio than the single-component model ($\sim$4$\times$).
+
+\subsection*{M6. Grid scan and interpolation}
+
+We perform a 3D grid scan over $\kappa \in [1.0, 5.0]$ (7 values), $\sigma \in [1.5, 3.0]$ (7 values), and $\gamma \in [0.40, 0.80]$ (5 values), for a total of 245 grid points. At each point, the full Langevin + CTRW simulation is run and $(\alpha_{\mathrm{sim}}, k_{\mathrm{sim}})$ are extracted. Summary statistics are:
+\begin{itemize}
+\item $\alpha$: slope of the CCDF in the upper 50th percentile (log--log regression);
+\item $k$: maximum-likelihood Weibull shape parameter.
+\end{itemize}
+A trilinear interpolation surface $(\alpha, k) = f(\kappa, \sigma, \gamma)$ is constructed over the grid for MCMC evaluation. We verified against a denser $10 \times 10 \times 7$ subgrid that interpolation errors remain below 3\% for both $\alpha$ and $k$, confirming that the 245-point grid provides adequate resolution for posterior inference.
+
+\subsection*{M7. MCMC procedure}
+
+We use \texttt{emcee}\cite{foremanmackey2013} with 24 walkers, 2{,}000 steps, and 500-step burn-in. The log-likelihood is:
+\begin{equation}
+\ln\mathcal{L} = -\frac{1}{2}\left[\frac{(\alpha_{\mathrm{sim}} - \alpha_{\mathrm{obs}})^2}{\sigma_\alpha^2} + \frac{(k_{\mathrm{sim}} - k_{\mathrm{obs}})^2}{\sigma_k^2}\right],
+\tag{M6}
+\label{eq:M6}
+\end{equation}
+with $\sigma_\alpha = 0.1$ and $\sigma_k = 0.05$ as observational uncertainties. Flat priors are adopted: $\kappa \in [0.5, 6]$, $\sigma \in [0.5, 4]$, $\gamma \in [0.3, 0.95]$. Convergence is assessed via the integrated autocorrelation time ($\hat{\tau} < N_{\mathrm{steps}}/50$).
+
+\subsection*{M8. Bayesian $q$-Gaussian fitting}
+
+The $q$-Gaussian probability density is
+\begin{equation}
+p(x \mid q, \beta, \mu) = C_q\bigl[1 + (q-1)\beta(x-\mu)^2\bigr]^{-1/(q-1)},
+\tag{M7}
+\label{eq:M7}
+\end{equation}
+with normalization $C_q$. We run \texttt{emcee} on the log-likelihood $\ln\mathcal{L} = \sum_i \ln p(x_i \mid q, \beta, \mu)$ with priors $q \in (1.05, 2.8)$, $\beta \in (0.01, 50)$, $\mu \in (-10, 20)$, using 24 walkers, 1{,}500 steps, and 500-step burn-in. Model comparison uses the Bayesian Information Criterion:
+\begin{equation}
+\Delta\mathrm{BIC} = \mathrm{BIC}_{\mathrm{Gauss}} - \mathrm{BIC}_{q\text{-Gauss}}\,,
+\tag{M8}
+\end{equation}
+with $\Delta\mathrm{BIC} > 10$ constituting strong evidence\cite{kass1995}.
+
+\subsection*{M9. Microphysics parameter estimates}
+
+We estimate model parameters from neutron star microphysics as:
+\begin{align}
+\kappa &\sim \frac{\mu_{\mathrm{crust}}}{B^2/(8\pi)} \sim \frac{10^{29}\,\mathrm{dyn\,cm^{-2}}}{(10^{14}\,\mathrm{G})^2/(8\pi)} \sim 2.5\,,
+\tag{M9}\\
+\sigma &\sim \sqrt{\frac{k_B T}{B^2 R_{\mathrm{NS}}^3 /(8\pi)}} \cdot \mathcal{S}\,,
+\tag{M10}\\
+\gamma &\sim \frac{1}{1 + n_{\mathrm{multi}}/n_{\mathrm{dipole}}}\,,
+\tag{M11}
+\end{align}
+where $\mu_{\mathrm{crust}} \sim 10^{29}$\,dyn\,cm$^{-2}$ is the crust shear modulus, $T \sim 10^8$\,K is the interior temperature, $\mathcal{S}$ is a dimensionless scaling factor, and $n_{\mathrm{multi}}/n_{\mathrm{dipole}}$ is the ratio of multipolar to dipolar harmonic power. For $B \sim 10^{14}$\,G (typical magnetar), $\kappa \sim 2.5$; for young magnetars with $n_{\mathrm{multi}}/n_{\mathrm{dipole}} \sim 1$--$5$, $\gamma \sim 0.17$--$0.50$, consistent with the MCMC posteriors.
+
+\subsection*{M10. Two-dimensional extension}
+
+The 2D coupled system extends the Langevin equation to:
+\begin{align}
+dx &= \kappa_x x(1-x)\,dt + \sigma_x\,dW_x + \varepsilon\,r\,dW_r\,,
+\tag{M12}\\
+dr &= \kappa_r r(r_{\mathrm{eq}} - r)\,dt + \sigma_r r^\beta\,dW_r + \varepsilon\,x\,dW_x\,,
+\tag{M13}
+\end{align}
+where $r$ is the magnetospheric radius, $r_{\mathrm{eq}}$ the equilibrium radius, and $\varepsilon$ the cross-coupling coefficient. The burst threshold becomes radius-dependent: $x_{\mathrm{thresh}}(r) = x_0(r/r_{\mathrm{eq}})^{-\mu}$ with $\mu = 1.5$, encoding the physical expectation that more compact magnetospheres have lower burst thresholds.

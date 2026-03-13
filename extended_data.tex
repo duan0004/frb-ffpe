@@ -1,0 +1,120 @@
+% ============================================================
+% EXTENDED DATA
+% ============================================================
+
+\section*{Extended Data}
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{ed_fig1_sensitivity.pdf}
+\caption{\textbf{Extended Data Figure 1: Parameter sensitivity analysis.}
+\textbf{a,} Power-law index $\alpha$ across a $6 \times 6$ grid in $(\kappa, \sigma)$ space. $\alpha$ varies by less than 2\% (CV), confirming effective insensitivity across the explored regime.
+\textbf{b,} Tsallis $q$ parameter heatmap. Fitting fails (returns $q \to 1$) in 33\% of extreme parameter combinations, motivating the Bayesian approach (Fig.~\ref{fig:obs}c).
+\textbf{c,} Log-normal Q--Q $R^2$, stably between 0.87--0.93 across all parameters.}
+\label{fig:ed1}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{ed_fig2_gamma_k.pdf}
+\caption{\textbf{Extended Data Figure 2: Weibull $k$ response to fractional order $\gamma$.}
+\textbf{a,} $k$ vs $\gamma$ for $\gamma \in [0.50, 0.90]$. The linear relation $k = 0.85\gamma - 0.04$ holds with $r = 0.996$.
+\textbf{b,} Numerical robustness: $k$ and Mittag-Leffler $\gamma_{\mathrm{ML}}$ are insensitive to truncation parameters $\tau_{\min}$ and $n_{\mathrm{substeps}}$ (CV $\leq 3.8\%$), confirming that the $k < \gamma$ offset is a physical effect, not a numerical artifact.}
+\label{fig:ed2}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{ed_fig3_bootstrap_q.pdf}
+\caption{\textbf{Extended Data Figure 3: Bootstrap $q$-Gaussian confidence intervals.}
+500 bootstrap resamples yield a highly stable $q$ distribution with 99.4\% convergence rate. The 95\% CI $q = 1.52$--$1.72$ encompasses the FAST literature value $q = 1.63$. $\Delta\mathrm{BIC} = 132.3$ decisively favours the $q$-Gaussian over a Gaussian distribution.}
+\label{fig:ed3}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{ed_fig4_bimodal.pdf}
+\caption{\textbf{Extended Data Figure 4: Bimodal waiting-time calibration.}
+\textbf{a,} Observed waiting-time distributions from FAST showing bimodal GMM decomposition.
+\textbf{b,} Hierarchical two-trap CTRW achieves a peak ratio of 443$\times$, compared to 4$\times$ for the single-component model.
+\textbf{c,} Parameter scan of peak ratio vs trap depth ratio $\tau_{\mathrm{long}}/\tau_{\mathrm{short}}$, coloured by $\gamma_2$.}
+\label{fig:ed4}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{ed_fig5_2d.pdf}
+\caption{\textbf{Extended Data Figure 5: Two-dimensional extension.}
+\textbf{a,} Energy CCDF comparison between 1D and 2D models ($\Delta\alpha = 0.21$).
+\textbf{b,} Weibull $k$ is completely invariant under 2D coupling ($k = 0.551$ for all $\varepsilon \in [0, 1]$).
+\textbf{c,} Fractal dimension $D_f = 1.27$ in the energy--duration plane, intermediate between line-filling ($D_f = 1$) and space-filling ($D_f = 2$).
+\textbf{d,} Energy--radius anti-correlation $\rho(E, r) = -0.35$, a testable prediction for VLBI observations.}
+\label{fig:ed5}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{ed_fig6_evolution.pdf}
+\caption{\textbf{Extended Data Figure 6: Activity period time evolution.}
+\textbf{a,} Power-law index $\alpha$ across time windows for three FRB sources. $\alpha$ remains stable (CV $\sim 10\%$), confirming its effective stability across activity cycles.
+\textbf{b,} Weibull $k$ shows larger variation across windows, consistent with time-varying magnetospheric trap dynamics.}
+\label{fig:ed6}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{ed_fig7_hierarchy.pdf}
+\caption{\textbf{Extended Data Figure 7: Hierarchical Bayesian population analysis.}
+\textbf{a,} Posterior distributions of population hyperparameters $\mu_\alpha$ and $\mu_k$.
+\textbf{b,} Intrinsic scatter: $\sigma_\alpha = 0.167$ and $\sigma_k = 0.126$, indicating a physically homogeneous source population with source-specific memory ($\gamma$) as the primary driver of diversity.}
+\label{fig:ed7}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{ed_fig8_nonrepeater.pdf}
+\caption{\textbf{Extended Data Figure 8: Non-repeater predictions and discriminating tests.}
+Four of five proposed tests (Weibull $k$, bimodality coefficient, $q$-Gaussian $q$, waiting-time clustering) discriminate between repeating and non-repeating FRBs. The energy power-law index $\alpha$ is predicted to be effectively invariant across sources, consistent with population studies\cite{hashimoto2022}.}
+\label{fig:ed8}
+\end{figure*}
+
+% ============================================================
+% EXTENDED DATA TABLES
+% ============================================================
+
+\begin{table*}[!ht]
+\centering
+\caption{\textbf{Extended Data Table 1: Full MCMC posterior results.}}
+\begin{tabular}{lccccccc}
+\toprule
+\textbf{Source} & $\kappa$ & $\sigma$ & $\gamma$ & $\alpha_{\mathrm{pred}}$ & $\alpha_{\mathrm{obs}}$ & $k_{\mathrm{pred}}$ & $k_{\mathrm{obs}}$ \\
+\midrule
+FRB~121102            & $1.30^{+0.65}_{-0.56}$ & $3.17^{+0.56}_{-0.64}$ & $0.460^{+0.056}_{-0.069}$ & 2.01 & 2.03 & 0.393 & 0.390 \\
+20201124A (Zhang)     & $1.62^{+0.85}_{-0.70}$ & $3.05^{+0.67}_{-0.78}$ & $0.557^{+0.051}_{-0.057}$ & 2.07 & 2.11 & 0.482 & 0.480 \\
+20201124A (Xu)        & $1.86^{+0.92}_{-0.88}$ & $3.16^{+0.57}_{-0.82}$ & $0.704^{+0.041}_{-0.042}$ & 2.10 & 2.13 & 0.617 & 0.640 \\
+\bottomrule
+\end{tabular}
+\label{tab:ed1}
+\end{table*}
+
+\begin{table*}[!ht]
+\centering
+\caption{\textbf{Extended Data Table 2: Extended $\gamma$ hierarchy across six FRB sources.}$^{\dagger}$}
+\begin{tabular}{lccccccl}
+\toprule
+\textbf{Source} & $z$ & $\alpha$ & $k$ & $\gamma$ & Method & Activity & Host \\
+\midrule
+FRB~121102         & 0.193 & 2.03 & 0.39 & 0.460 & MCMC     & Extreme    & Dwarf irregular \\
+20201124A (Zhang)  & 0.098 & 2.11 & 0.48 & 0.557 & MCMC     & Active     & Barred spiral \\
+20180916B          & 0.034 & 1.90 & 0.50 & 0.635 & Inferred & Periodic   & Spiral arm \\
+20201124A (Xu)     & 0.098 & 2.13 & 0.64 & 0.704 & MCMC     & Moderate   & Barred spiral \\
+20220912A$^{\dagger\dagger}$  & 0.077 & 2.30 & 0.58 & 0.729 & Inferred & Active     & Star-forming \\
+20200120E          & 0.001 & 2.30 & 0.72 & 0.894 & Inferred & Low        & Globular cluster \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+{\footnotesize $^{\dagger}$ $\gamma$ values for ``Inferred'' sources are derived from the $k$--$\gamma$ calibration (equation~5). MCMC values have typical uncertainties $\sigma_\gamma \approx 0.05$--$0.07$.}\\
+{\footnotesize $^{\dagger\dagger}$ Values derived from FAST monitoring sessions ($\Delta t \sim 0.01$--$1{,}000$\,s; ref.~Zhang et al.~2023). CHIME transit-mode data ($\Delta t < 60$\,s) yield $k_{\mathrm{CHIME}} = 0.344$, $\gamma_{\mathrm{CHIME}} = 0.452 \pm 0.017$; see \S5 for discussion of timescale-dependent memory.}
+\end{flushleft}
+\label{tab:ed2}
+\end{table*}
