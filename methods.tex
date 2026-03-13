@@ -41,13 +41,13 @@ chosen to adapt to the noise-dependent excursion level. The burst energy accumul
 
 \subsection*{M4. CTRW waiting-time generation}
 
-For each burst event, an inter-burst waiting time is drawn from a stable distribution with index $\gamma$ using the Chambers--Mallows--Stuck algorithm\cite{chambers1976}:
+For each burst event, an inter-burst waiting time is drawn from a one-sided stable distribution with index $\gamma$ using the Chambers--Mallows--Stuck algorithm\cite{chambers1976}:
 \begin{align}
-\tau &= \tau_{\min}\left[\frac{(-\ln u)^\gamma \sin(\gamma\pi v)}{\sin(\pi v)}\right]^{1/\gamma}\,,
+\tau &= \tau_{\min}\,\frac{\sin(\gamma V)}{(\cos V)^{1/\gamma}}\left[\frac{\cos\bigl((1-\gamma)V\bigr)}{W}\right]^{(1-\gamma)/\gamma}\,,
 \tag{M4}
 \label{eq:M4}
 \end{align}
-where $u, v \sim \mathrm{Uniform}(0,1)$ and $\tau_{\min} = 0.01$. To suppress pathological realisations, each $\tau$ is further smoothed via $n_{\mathrm{sub}} = \min(\lfloor\tau/\Delta t\rfloor + 1,\, 30)$ substeps with additive Gaussian noise:
+where $V \sim \mathrm{Uniform}(-\pi/2, \pi/2)$, $W \sim \mathrm{Exponential}(1)$, and $\tau_{\min} = 0.01$ sets the minimum timescale. To suppress pathological realisations, each $\tau$ is further smoothed via $n_{\mathrm{sub}} = \min(\lfloor\tau/\Delta t\rfloor + 1,\, 30)$ substeps with additive Gaussian noise:
 \begin{equation}
 \tau_{\mathrm{eff}} = \sum_{i=1}^{n_{\mathrm{sub}}} \left(\frac{\tau}{n_{\mathrm{sub}}} + 0.1\sqrt{\frac{\tau}{n_{\mathrm{sub}}}}\,\eta_i\right),
 \tag{M5}

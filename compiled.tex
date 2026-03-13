@@ -164,7 +164,7 @@ We validate the framework against three FAST datasets (Methods): \frb{121102} (1
 
 \textbf{Waiting times.} All episodes show Weibull $k < 1$ ($k = 0.39$, $0.64$, $0.48$), confirming non-Markovian memory. The bimodality coefficient exceeds the critical threshold ($\mathrm{BC} > 0.556$) for all three episodes ($\mathrm{BC} = 0.81$, $0.75$, $0.62$). Reproducing the observed bimodal structure ($\sim$50\,ms and $\sim$10\,s peaks; Fig.~\ref{fig:obs}b) requires extending the base three-parameter model with a hierarchical two-trap CTRW (Methods~M5), which introduces additional trapping parameters; we therefore treat bimodality as an \emph{extended} feature rather than part of the minimal core fit.
 
-\textbf{$q$-Gaussian statistics.} As a posterior consistency check, Bayesian fitting yields $q = 1.86$, $1.98$, and $1.93$ with $\Delta\mathrm{BIC} = 2{,}315$, $3{,}545$, and $1{,}685$ in favour of the $q$-Gaussian over a standard Gaussian\cite{kass1995} (Fig.~\ref{fig:obs}c). The FAST literature value $q = 1.63$ falls within the 95\% credible interval for all episodes. We note that $q$-statistics are not part of the joint MCMC likelihood but serve as an independent consistency test.
+\textbf{$q$-Gaussian statistics.} As a posterior consistency check, Bayesian fitting yields $q = 1.86$, $1.98$, and $1.93$ with $\Delta\mathrm{BIC} = 2{,}315$, $3{,}545$, and $1{,}685$ in favour of the $q$-Gaussian over a standard Gaussian\cite{kass1995} (Fig.~\ref{fig:obs}c). The reported FAST value $q = 1.63$ falls within the 95\% credible interval for all episodes. We note that $q$-statistics are not part of the joint MCMC likelihood but serve as an independent consistency test.
 
 \textbf{Model comparison.} The base model captures energy tails and waiting-time clustering with three free parameters $(\kappa, \sigma, \gamma)$. In contrast, reproducing the same observables with standard piecemeal models---a broken power law for energy ($k = 3$), a Weibull distribution for waiting times ($k = 2$), and a $q$-Gaussian ($k = 3$)---requires at least 8 parameters with no cross-observable predictions. Adding bimodality via a two-component log-normal ($k = 6$) raises the piecemeal total to $\sim$14.
 
@@ -236,7 +236,7 @@ Several limitations and future directions should be noted. First, the primary MC
 \centering
 \includegraphics[width=\textwidth]{fig1_observational_validation.png}
 \caption{\textbf{Observational validation against 4{,}396 FAST bursts.}
-Cumulative complementary distribution functions (CCDFs) of burst energy for three FRB sources (coloured points) overlaid with theoretical predictions (black lines), showing power-law indices $\alpha$ spanning 2.03--2.13 (panel a). Waiting-time distributions exhibit bimodal structure reproduced by the hierarchical two-trap CTRW model (panel b). Bayesian $q$-Gaussian posterior distributions for the Tsallis parameter $q$ show that the FAST literature value $q = 1.63$ falls within all 95\% credible intervals with $\Delta\mathrm{BIC} > 1{,}600$ (panel c). Summary of quantitative validation metrics (panel d).}
+Cumulative complementary distribution functions (CCDFs) of burst energy for three FRB sources (coloured points) overlaid with theoretical predictions (black lines), showing power-law indices $\alpha$ spanning 2.03--2.13 (panel a). Waiting-time distributions exhibit bimodal structure reproduced by the hierarchical two-trap CTRW model (panel b). Bayesian $q$-Gaussian posterior distributions for the Tsallis parameter $q$ show that the reported FAST value $q = 1.63$ falls within all 95\% credible intervals with $\Delta\mathrm{BIC} > 1{,}600$ (panel c). Summary of quantitative validation metrics (panel d).}
 \label{fig:obs}
 \end{figure*}
 
@@ -385,13 +385,13 @@ chosen to adapt to the noise-dependent excursion level. The burst energy accumul
 
 \subsection*{M4. CTRW waiting-time generation}
 
-For each burst event, an inter-burst waiting time is drawn from a stable distribution with index $\gamma$ using the Chambers--Mallows--Stuck algorithm\cite{chambers1976}:
+For each burst event, an inter-burst waiting time is drawn from a one-sided stable distribution with index $\gamma$ using the Chambers--Mallows--Stuck algorithm\cite{chambers1976}:
 \begin{align}
-\tau &= \tau_{\min}\left[\frac{(-\ln u)^\gamma \sin(\gamma\pi v)}{\sin(\pi v)}\right]^{1/\gamma}\,,
+\tau &= \tau_{\min}\,\frac{\sin(\gamma V)}{(\cos V)^{1/\gamma}}\left[\frac{\cos\bigl((1-\gamma)V\bigr)}{W}\right]^{(1-\gamma)/\gamma}\,,
 \tag{M4}
 \label{eq:M4}
 \end{align}
-where $u, v \sim \mathrm{Uniform}(0,1)$ and $\tau_{\min} = 0.01$. To suppress pathological realisations, each $\tau$ is further smoothed via $n_{\mathrm{sub}} = \min(\lfloor\tau/\Delta t\rfloor + 1,\, 30)$ substeps with additive Gaussian noise:
+where $V \sim \mathrm{Uniform}(-\pi/2, \pi/2)$, $W \sim \mathrm{Exponential}(1)$, and $\tau_{\min} = 0.01$ sets the minimum timescale. To suppress pathological realisations, each $\tau$ is further smoothed via $n_{\mathrm{sub}} = \min(\lfloor\tau/\Delta t\rfloor + 1,\, 30)$ substeps with additive Gaussian noise:
 \begin{equation}
 \tau_{\mathrm{eff}} = \sum_{i=1}^{n_{\mathrm{sub}}} \left(\frac{\tau}{n_{\mathrm{sub}}} + 0.1\sqrt{\frac{\tau}{n_{\mathrm{sub}}}}\,\eta_i\right),
 \tag{M5}
