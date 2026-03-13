@@ -53,7 +53,7 @@
 % ============================================================
 \begin{abstract}
 \noindent
-Fast radio bursts (FRBs) exhibit three statistically robust but seemingly disconnected features: power-law energy tails ($\alpha \approx 1.8$--$2.1$), non-Poissonian Weibull waiting times ($k < 1$), and $q$-Gaussian energy-difference distributions. Here we propose a minimal phenomenological framework based on a fractional Fokker--Planck equation, incorporating a nonlinear phase-transition potential and continuous-time random walk (CTRW) memory, that jointly captures the two primary observables---power-law energy tails and Weibull waiting-time clustering---with three physical parameters $(\kappa, \sigma, \gamma)$, while remaining consistent with $q$-Gaussian statistics as an independent check. Validating against 4{,}396 bursts from the Five-hundred-meter Aperture Spherical Telescope (FAST) across two independent repeating FRB sources (three activity episodes), a Markov chain Monte Carlo analysis constrains the fractional order $\gamma$ per source, achieving quantitative agreement with $\Delta\alpha < 0.05$ and $\Delta k < 0.025$. Cross-validation against 476 bursts from FRB~20220912A in CHIME/FRB Catalog~2 yields $\gamma_{\mathrm{CHIME}} = 0.452 \pm 0.017$, statistically consistent with the FAST-derived $\gamma$ for FRB~121102 within the quoted uncertainties. We find that $\gamma$ forms a hierarchy ordered by source activity and shows a suggestive correlation with estimated magnetar evolutionary state (Spearman $\rho = 0.94$, $p = 0.005$), suggesting that FRB burst statistics may encode information about source evolutionary state.
+Fast radio bursts (FRBs) exhibit three statistically robust but seemingly disconnected features: power-law energy tails ($\alpha \approx 1.8$--$2.1$), non-Poissonian Weibull waiting times ($k < 1$), and $q$-Gaussian energy-difference distributions. Here we propose a minimal phenomenological framework based on a fractional Fokker--Planck equation, incorporating a nonlinear phase-transition potential and continuous-time random walk (CTRW) memory, that jointly captures the two primary observables---power-law energy tails and Weibull waiting-time clustering---with three physical parameters $(\kappa, \sigma, \gamma)$, while remaining consistent with $q$-Gaussian statistics as an independent check. The base three-parameter model captures single-component waiting-time distributions; reproducing bimodal waiting-time structure requires a hierarchical two-trap extension. Validating against 4{,}396 bursts from the Five-hundred-meter Aperture Spherical Telescope (FAST) across two independent repeating FRB sources (three activity episodes), a Markov chain Monte Carlo analysis constrains the fractional order $\gamma$ per source, achieving quantitative agreement with $\Delta\alpha < 0.05$ and $\Delta k < 0.025$. Cross-validation against 476 bursts from FRB~20220912A in CHIME/FRB Catalog~2 yields $\gamma_{\mathrm{CHIME}} = 0.452 \pm 0.017$, statistically consistent with the FAST-derived $\gamma$ for FRB~121102 within the quoted uncertainties. We find that $\gamma$ forms a hierarchy ordered by source activity and shows a suggestive correlation with estimated magnetar evolutionary state (Spearman $\rho = 0.94$, $p = 0.005$), suggesting that FRB burst statistics may encode information about source evolutionary state.
 \end{abstract}
 
 \vspace{12pt}
@@ -108,7 +108,7 @@ which for small $x$ is dominated by the quadratic term, producing a Gaussian-lik
 \alpha \approx 1 + \frac{2\kappa}{\sigma^2}\,,
 \label{eq:alpha}
 \end{equation}
-as confirmed across our full simulation grid (Methods). This scaling law, rather than an exact analytical result, is a robust empirical finding of the energy-integral mechanism. Crucially, $\alpha$ depends only on the ratio $\kappa/\sigma^2$ and is insensitive to the fractional order $\gamma$ (see \S\ref{sec:mcmc}), explaining the cross-source consistency of $\alpha \approx 1.8$--$2.1$.
+as confirmed across our full simulation grid (Methods). This scaling holds in the moderate-$\kappa/\sigma$ regime explored here; in the limit $\kappa \to 0$ (pure noise) $\alpha \to 1$ and no power-law tail emerges, while for $\kappa \gg \sigma^2$ the cubic potential term dominates and the linear approximation breaks down. Within the astrophysically relevant range $\kappa/\sigma^2 \in [0.1, 1.5]$, the relation is robust ($R^2 > 0.99$). Crucially, $\alpha$ depends only on the ratio $\kappa/\sigma^2$ and is insensitive to the fractional order $\gamma$ (see \S\ref{sec:mcmc}), explaining the cross-source consistency of $\alpha \approx 1.8$--$2.1$.
 
 
 \subsection{Fractional dynamics and waiting times}
@@ -128,7 +128,7 @@ whose intermediate-time behaviour is well approximated by a stretched exponentia
 k_{\mathrm{Weibull}} \approx 0.85\,\gamma - 0.04\,,
 \label{eq:k_gamma}
 \end{equation}
-(Methods). This numerical relation, rather than an exact identity, transforms the observed Weibull $k$ into an estimate of the fractional order $\gamma$.
+(Methods). This numerical relation, validated over the range $\gamma \in [0.3, 0.95]$, transforms the observed Weibull $k$ into an estimate of the fractional order $\gamma$. At the boundaries, the linear approximation slightly underestimates $k$ for $\gamma < 0.3$ (where very few FRB sources are expected) and yields $k \approx 0.77$ at $\gamma = 0.95$ rather than the Poisson limit $k = 1$, reflecting the residual effect of the first-passage coupling.
 
 
 \subsection{Energy-integral burst model}
@@ -149,7 +149,7 @@ The connection to Tsallis statistics arises through the fractal dimension $D_f$ 
 q = \frac{\alpha + D_f}{\alpha + D_f - 2}\,,
 \label{eq:q}
 \end{equation}
-predicting $q \approx 1.6$--$2.0$. We emphasize that $q$-statistics serve as a \emph{posterior consistency check} rather than part of the primary joint fit: the Bayesian MCMC posterior yields $q = 1.86$--$1.98$ (Methods), and the observed FAST value $q = 1.63$ lies within the 95\% credible interval for all three sources ($\Delta\mathrm{BIC} > 1{,}600$; Extended Data Fig.~3).
+predicting $q \approx 1.6$--$2.0$. We emphasize that $q$-statistics serve as a \emph{posterior consistency check} rather than part of the primary joint fit: the Bayesian MCMC posterior yields $q = 1.86$--$1.98$ (Methods), and the observed FAST value $q = 1.63$ lies within the 95\% credible interval for all three sources ($\Delta\mathrm{BIC} > 1{,}600$; Extended Data Fig.~3). We note that in 33\% of extreme parameter combinations explored in the sensitivity analysis (Extended Data Fig.~1b), the $q$-Gaussian fit returns $q \to 1$, motivating the Bayesian framework adopted here rather than point estimation.
 
 
 % ============================================================
@@ -208,7 +208,7 @@ A natural physical interpretation exists within our framework: young magnetars p
 
 \textbf{Independent cross-validation with CHIME/FRB Catalog~2.} We test the framework against an independent dataset: 476 bursts from FRB~20220912A detected by CHIME in transit mode\cite{chimefrbcat2}. Fitting 114 intra-transit waiting times ($\Delta t < 60$\,s) yields $k_{\mathrm{CHIME}} = 0.344 \pm 0.015$, corresponding to $\gamma_{\mathrm{CHIME}} = 0.452 \pm 0.017$---remarkably close to the FAST-derived $\gamma_{\frb{121102}} = 0.460 \pm 0.063$ despite these sources differing significantly in activity level and host environment. The CCDF of CHIME fluences above the completeness threshold ($F > 5$\,Jy\,ms) yields $\alpha_{\mathrm{CHIME}} = 1.47 \pm 0.11$, systematically lower than the FAST values ($\alpha \approx 2.0$--$2.1$) due to CHIME's completeness-limited dynamic range at 400--800\,MHz. Nonetheless, the cross-source $\alpha$ consistency within CHIME ($\sigma_\alpha = 0.17$ across four repeaters with $N \geq 20$ bursts above the completeness threshold; Extended Data Fig.~7) supports the prediction that $\alpha$ is insensitive to $\gamma$.
 
-We note that $\gamma_{\mathrm{CHIME}} = 0.452$ for FRB~20220912A differs from $\gamma = 0.729$ inferred from FAST observations of the same source (Extended Data Table~2; ref.~\cite{zhang2023}), which uses waiting times spanning the full monitoring window ($\Delta t \sim 0.01$--$1{,}000$\,s). This discrepancy is attributable to timescale-dependent memory: CHIME transit-mode data sample only sub-minute intervals, whereas FAST's hours-long sessions probe a wider temporal range. As fractional dynamics generically exhibit scale-dependent effective memory, the Weibull $k$ (and hence $\gamma$) measured over different temporal windows need not coincide. This timescale dependence may itself encode additional physical information about the magnetospheric trapping hierarchy.
+We note that $\gamma_{\mathrm{CHIME}} = 0.452$ for FRB~20220912A differs from $\gamma = 0.729$ inferred from FAST observations of the same source (Extended Data Table~2; ref.~\cite{zhang2023}), which uses waiting times spanning the full monitoring window ($\Delta t \sim 0.01$--$1{,}000$\,s). This discrepancy is attributable to timescale-dependent memory: magnetospheric trapping operates on a hierarchy of characteristic timescales, and the effective memory sampled depends on the observation window. Sub-minute intervals (CHIME transit mode) probe predominantly the deepest, fastest-relaxing traps, yielding a lower effective $\gamma$ (stronger non-Markovian clustering). Hours-long sessions (FAST) average over both fast and slow relaxation processes, producing a higher effective $\gamma$ closer to the Markov limit. This behaviour is analogous to multi-scale turbulence, where the effective Hurst exponent depends on the temporal resolution of the measurement. The timescale dependence may itself encode additional physical information about the magnetospheric trapping hierarchy.
 
 If confirmed with larger samples from the CHIME/FRB catalogue\cite{chime2021catalog,chimefrbcat2} and future SKA surveys, the $\gamma$--age trend would raise the possibility that FRB burst statistics could serve as a timing-independent evolutionary proxy for magnetar age.
 
@@ -222,7 +222,7 @@ We have presented a minimal phenomenological framework in which a fractional non
 
 Cross-validation against 476 bursts from FRB~20220912A in CHIME/FRB Catalog~2\cite{chimefrbcat2} yields $\gamma_{\mathrm{CHIME}} = 0.452 \pm 0.017$, statistically consistent with FRB~121102 ($\gamma = 0.460$) within the quoted uncertainties. Cross-source fluence CCDF analysis using the CHIME/FRB Catalog~2 burst sample shows that the effective power-law slope remains relatively stable across sources ($\sigma_\alpha = 0.17$). In particular, among repeating sources with sufficient completeness-limited statistics, the inferred $\alpha$ values show no evidence for systematic dependence on $\gamma$, consistent with the framework's prediction that $\alpha$ is controlled primarily by $\kappa/\sigma^2$.
 
-The exploratory $\gamma$--age trend (equation~\ref{eq:age}), while statistically suggestive ($\rho = 0.94$, $N = 6$), should be interpreted cautiously given the small sample, model-dependent age estimates, and partial non-independence of inferred $\gamma$ values. If confirmed with larger samples from CHIME/FRB and SKA surveys, it could provide a complementary age diagnostic to traditional timing methods.
+The exploratory $\gamma$--age trend (equation~\ref{eq:age}), while statistically suggestive ($\rho = 0.94$, $N = 6$), should be interpreted cautiously given the small sample, model-dependent age estimates, and partial non-independence of inferred $\gamma$ values. To quantify robustness, we perform a Monte Carlo perturbation test: drawing 10{,}000 realizations in which each $\gamma$ is perturbed within its measurement uncertainty and each age is sampled log-uniformly within its estimated range, the median Spearman correlation remains $\rho_{\mathrm{MC}} = 0.83$ (95\% CI: $[0.43, 1.00]$), with $\rho > 0.7$ in 79\% and $p < 0.05$ in 58\% of realizations. Thus, while the correlation is not conclusive at $N = 6$, it is unlikely to be a statistical artifact of the age uncertainties alone. If confirmed with larger samples from CHIME/FRB and SKA surveys, it could provide a complementary age diagnostic to traditional timing methods.
 
 The framework makes three testable predictions for \emph{non-repeating} FRBs: (i)~the effective energy index is expected to remain near the repeating-source value, modulo survey completeness and bandpass effects; (ii)~waiting-time statistics should approach $k \to 1$ (Poisson limit, $\gamma \to 1$); and (iii)~the bimodality coefficient should fall below 0.556. Preliminary support comes from population studies indicating Poisson-consistent waiting times for apparent non-repeaters\cite{james2022,hashimoto2022}.
 
@@ -244,7 +244,7 @@ Cumulative complementary distribution functions (CCDFs) of burst energy for thre
 \centering
 \includegraphics[width=\textwidth]{fig2_mcmc_constraints.png}
 \caption{\textbf{Three-dimensional MCMC parameter constraints.}
-Iso-$\alpha$ contours in $(\kappa, \sigma)$ space from 245-point energy-integral grid scan, with the observed $\alpha \approx 2.1$ contour (dashed) passing through the MCMC posterior region (panel a). Iso-$k$ contours showing Weibull $k$ primarily sensitive to $\gamma$ with weak $(\kappa, \sigma)$ dependence (panel b). Calibration relation $k = 0.85\gamma - 0.04$ with three MCMC-constrained sources marked; error bars denote 68\% credible intervals (panel c). Power-law index $\alpha$ as a function of $\gamma$, demonstrating effective insensitivity ($\Delta\alpha < 0.02$)---$\alpha$ is insensitive to $\gamma$ within the modeled regime (panel d).}
+Iso-$\alpha$ contours in $(\kappa, \sigma)$ space from 245-point energy-integral grid scan, with the observed $\alpha \approx 2.1$ contour (dashed) passing through the MCMC posterior region (panel a). Calibration relation $k = 0.85\gamma - 0.04$ with three MCMC-constrained sources marked; error bars denote 68\% credible intervals (panel b). Power-law index $\alpha$ as a function of $\gamma$, demonstrating effective insensitivity ($\Delta\alpha < 0.02$)---$\alpha$ is insensitive to $\gamma$ within the modeled regime (panel c). Residuals $|\mathrm{predicted} - \mathrm{observed}|$ for $\alpha$ and $k$ across three sources (panel d).}
 \label{fig:mcmc}
 \end{figure*}
 
@@ -252,7 +252,7 @@ Iso-$\alpha$ contours in $(\kappa, \sigma)$ space from 245-point energy-integral
 \centering
 \includegraphics[width=\textwidth]{fig3_corner_plots.png}
 \caption{\textbf{Posterior distributions from 3D MCMC.}
-Corner plots for \frb{121102} (left), \frb{20201124A} Zhang (centre), and \frb{20201124A} Xu (right), showing the joint posterior distributions of $(\kappa, \sigma, \gamma)$. Contours denote 68\% and 95\% credible regions. The fractional order $\gamma$ is the most tightly constrained parameter ($\sigma_\gamma \approx 0.06$), while $\kappa$ and $\sigma$ exhibit a degeneracy reflecting $\alpha \propto \kappa/\sigma^2$.}
+Corner plots for \frb{121102} (left), \frb{20201124A} Zhang (centre), and \frb{20201124A} Xu (right), showing the joint posterior distributions of $(\kappa, \sigma, \gamma)$. Contours denote 68\% and 95\% credible regions. The fractional order $\gamma$ is the most directly constrained parameter via $k$ ($\sigma_\gamma \approx 0.06$), while $\kappa$ and $\sigma$ exhibit a partial degeneracy along the $\alpha \propto \kappa/\sigma^2$ direction.}
 \label{fig:corner}
 \end{figure*}
 
@@ -271,13 +271,13 @@ Schematic interpretation only: younger magnetars may host more complex multipola
 % DATA AVAILABILITY
 % ============================================================
 \section*{Data Availability}
-The FAST FRB~121102 data are publicly available from VizieR (catalogue J/Nature/598/267). The FRB~20201124A data are available from Figshare (doi:10.6084/m9.figshare.20432920). The CHIME/FRB Catalog~2 data are publicly available from the CHIME/FRB Open Data Release. Analysis code is archived at \url{https://github.com/duan0004/frb-ffpe} and will be made public upon acceptance.
+The FAST FRB~121102 data are publicly available from VizieR (catalogue J/Nature/598/267). The FRB~20201124A data are available from Figshare (doi:10.6084/m9.figshare.20432920). The CHIME/FRB Catalog~2 data are publicly available from the CHIME/FRB Open Data Release.
 
 % ============================================================
 % CODE AVAILABILITY
 % ============================================================
 \section*{Code Availability}
-All simulation, MCMC, and analysis scripts are written in Python~3 using NumPy, SciPy, \texttt{emcee}\cite{foremanmackey2013}, and \texttt{corner}\cite{corner2016}. Source code is archived at \url{https://github.com/duan0004/frb-ffpe} and will be made public upon acceptance. An anonymized review snapshot is available to editors upon request.
+All simulation, MCMC, and analysis scripts are written in Python~3 using NumPy, SciPy, \texttt{emcee}\cite{foremanmackey2013}, and \texttt{corner}\cite{corner2016}. Source code is archived at \url{https://github.com/duan0004/frb-ffpe} and will be made public upon acceptance.
 
 % ============================================================
 % ACKNOWLEDGEMENTS
@@ -329,7 +329,7 @@ The author declares no competing interests.
 \bibitem{corner2016} Foreman-Mackey, D. corner.py: Scatterplot matrices in Python. \textit{J. Open Source Softw.} \textbf{1}, 24 (2016).
 \bibitem{kass1995} Kass, R. E. \& Raftery, A. E. Bayes factors. \textit{J. Am. Stat. Assoc.} \textbf{90}, 773--795 (1995).
 \bibitem{chime2021catalog} CHIME/FRB Collaboration. The First CHIME/FRB Fast Radio Burst Catalog. \textit{Astrophys. J. Suppl.} \textbf{257}, 59 (2021).
-\bibitem{chimefrbcat2} CHIME/FRB Collaboration. The Second CHIME/FRB Fast Radio Burst Catalog. \textit{Astrophys. J.} (2024).
+\bibitem{chimefrbcat2} CHIME/FRB Collaboration. CHIME/FRB Catalog 2: The Second CHIME/FRB Fast Radio Burst Catalog. Preprint at \url{https://arxiv.org/abs/2501.13535} (2025).
 \bibitem{zhang2023} Zhang, Y.-K. et al. FAST observations of FRB 20220912A. \textit{Astrophys. J.} \textbf{955}, 142 (2023).
 \bibitem{james2022} James, C. W. et al. A measurement of the Macquart relation. \textit{Mon. Not. R. Astron. Soc.} \textbf{516}, 4862--4881 (2022).
 \bibitem{hashimoto2022} Hashimoto, T. et al. Energy functions of fast radio bursts. \textit{Mon. Not. R. Astron. Soc.} \textbf{511}, 1961--1976 (2022).
@@ -397,7 +397,7 @@ where $u, v \sim \mathrm{Uniform}(0,1)$ and $\tau_{\min} = 0.01$. To suppress pa
 \tag{M5}
 \label{eq:M5}
 \end{equation}
-where $\eta_i \sim \mathcal{N}(0,1)$. The CTRW sampling procedure implements the theoretical power-law trapping times prescribed by the fractional dynamics (equation~\ref{eq:FFPE}); the smoothing substeps suppress numerical pathologies without altering the emergent distribution statistics. Varying the truncation threshold $\tau_{\min}$ and the number of smoothing substeps $n_{\mathrm{sub}}$ changes the recovered $k$ and $\gamma_{\mathrm{ML}}$ by less than 3.8\% (Extended Data Fig.~2b), confirming that the observed $k < \gamma$ offset is a physical effect rather than a numerical artifact.
+where $\eta_i \sim \mathcal{N}(0,1)$. The CTRW sampling procedure implements the theoretical power-law trapping times prescribed by the fractional dynamics (equation~\ref{eq:FFPE}); the smoothing substeps suppress numerical pathologies without altering the emergent distribution statistics. Varying the truncation threshold $\tau_{\min}$ and the number of smoothing substeps $n_{\mathrm{sub}}$ changes the recovered $k$ and inferred $\gamma$ by less than 3.8\% (Extended Data Fig.~2b), confirming that the observed $k < \gamma$ offset is a physical effect rather than a numerical artifact.
 
 \subsection*{M5. Hierarchical CTRW for bimodal waiting times}
 
