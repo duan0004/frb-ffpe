@@ -167,7 +167,7 @@ def make_fig1(data):
     ax.set_xlim(0.1, 300)
     ax.set_ylim(1e-4, 1.1)
     ax.legend(fontsize=5, loc='lower left')
-    ax.text(0.02, 0.98, '\\textbf{a}', transform=ax.transAxes, fontsize=9, 
+    ax.text(0.02, 0.98, 'a', transform=ax.transAxes, fontsize=9, 
             fontweight='bold', va='top')
     
     # (b) Waiting time bimodal
@@ -181,7 +181,7 @@ def make_fig1(data):
     ax.set_xlabel('$\\log_{10}(\\Delta t\\,/\\,{\\rm s})$')
     ax.set_ylabel('PDF')
     ax.legend(fontsize=5)
-    ax.text(0.02, 0.98, '\\textbf{b}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'b', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     # (c) q-Gaussian posteriors (from our MCMC results)
@@ -203,7 +203,7 @@ def make_fig1(data):
     ax.set_xlabel('$q$')
     ax.set_ylabel('Posterior density')
     ax.legend(fontsize=5)
-    ax.text(0.02, 0.98, '\\textbf{c}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'c', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     # (d) Summary table
@@ -222,7 +222,7 @@ def make_fig1(data):
     table.scale(1, 1.4)
     for (row, col), cell in table.get_celld().items():
         cell.set_linewidth(0.3)
-    ax.text(0.02, 0.98, '\\textbf{d}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'd', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     plt.tight_layout()
@@ -256,7 +256,7 @@ def make_fig2():
     ax.scatter([1.30, 1.86, 1.62], [3.17, 3.16, 3.05],
                c=[COLORS['FRB121102'], COLORS['124A_Xu'], COLORS['124A_Zhang']],
                s=30, edgecolors='black', zorder=5, linewidths=0.5)
-    ax.text(0.02, 0.98, '\\textbf{a}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'a', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top', color='white')
     
     # (b) iso-k contours
@@ -281,7 +281,7 @@ def make_fig2():
     ax.set_xlabel('$\\gamma$')
     ax.set_ylabel('Weibull $k$')
     ax.legend(fontsize=5.5, loc='upper left')
-    ax.text(0.02, 0.98, '\\textbf{b}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'b', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     # (c) Alpha vs gamma (structural invariance)
@@ -299,8 +299,8 @@ def make_fig2():
     ax.set_ylabel('$\\alpha$')
     ax.set_ylim(1.7, 2.4)
     ax.legend(fontsize=5, loc='upper right')
-    ax.set_title('$\\alpha$ is invariant to $\\gamma$', fontsize=7)
-    ax.text(0.02, 0.98, '\\textbf{c}', transform=ax.transAxes, fontsize=9,
+    ax.set_title('$\\alpha$ insensitive to $\\gamma$', fontsize=7)
+    ax.text(0.02, 0.98, 'c', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     # (d) Fit quality
@@ -319,7 +319,7 @@ def make_fig2():
     ax.set_ylabel('|Predicted $-$ Observed|')
     ax.legend(fontsize=5.5)
     ax.set_ylim(0, 0.08)
-    ax.text(0.02, 0.98, '\\textbf{d}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'd', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     plt.tight_layout()
@@ -412,7 +412,7 @@ def make_fig4():
     ax.axvline(1.0, color='gray', linestyle=':', linewidth=0.5, alpha=0.5)
     ax.text(0.95, 0.02, 'Markov\nlimit', fontsize=4.5, color='gray',
             transform=ax.transAxes, ha='right', va='bottom')
-    ax.text(0.02, 0.98, '\\textbf{a}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'a', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     # (b) γ vs age (KEY PANEL)
@@ -457,7 +457,7 @@ def make_fig4():
     ax.text(0.98, 0.08, f'$\\rho = {0.943:.3f}$\n$p = {0.005:.3f}$',
             fontsize=5.5, transform=ax.transAxes, ha='right', va='bottom',
             bbox=dict(boxstyle='round,pad=0.3', facecolor='wheat', alpha=0.5))
-    ax.text(0.02, 0.98, '\\textbf{b}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'b', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     # (c) Physical schematic
@@ -511,7 +511,7 @@ def make_fig4():
     V2 = 0.5 * (x2 - 7.5)**2
     ax.plot(x2, V2/max(V2)*2.5 + 1, '-', color='#1ABC9C', linewidth=1)
     
-    ax.text(0.02, 0.98, '\\textbf{c}', transform=ax.transAxes, fontsize=9,
+    ax.text(0.02, 0.98, 'c', transform=ax.transAxes, fontsize=9,
             fontweight='bold', va='top')
     
     plt.tight_layout()
